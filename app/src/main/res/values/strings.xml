@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Wardrobe</string>
+    <string name="label_home">Home Fragment</string>
+</resources>
