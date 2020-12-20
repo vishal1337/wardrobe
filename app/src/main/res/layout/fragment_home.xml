@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".home.HomeFragment">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPagerShirts"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:orientation="horizontal"
         android:overScrollMode="never"
         app:layout_constraintBottom_toTopOf="@id/viewPagerPants"
         app:layout_constraintTop_toTopOf="parent" />
@@ -18,8 +19,53 @@
         android:id="@+id/viewPagerPants"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:orientation="horizontal"
         android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/viewPagerShirts" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAddShirts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_padding_size_large"
+        android:layout_marginVertical="@dimen/margin_padding_size_large"
+        android:contentDescription="@string/button_description_add_pants"
+        android:src="@drawable/ic_add_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnShuffle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/button_description_add_pants"
+        android:src="@drawable/ic_shuffle_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_padding_size_large"
+        android:contentDescription="@string/button_description_add_pants"
+        android:src="@drawable/ic_favorite_border_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnAddPants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_padding_size_large"
+        android:layout_marginVertical="@dimen/margin_padding_size_large"
+        android:contentDescription="@string/button_description_add_pants"
+        android:src="@drawable/ic_add_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

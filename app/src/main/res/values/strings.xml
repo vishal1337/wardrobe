@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Wardrobe</string>
     <string name="label_home">Home Fragment</string>
+    <string name="button_description_add_shirts">Button to Add Shirts</string>
+    <string name="button_description_shuffle_selection">Button to Shuffle Pair</string>
+    <string name="button_description_favorite">Button to Favorite a Pair</string>
+    <string name="button_description_add_pants">Button to Add Pants</string>
 </resources>
