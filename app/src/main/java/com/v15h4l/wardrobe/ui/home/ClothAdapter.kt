@@ -1,4 +1,4 @@
-package com.v15h4l.wardrobe.home
+package com.v15h4l.wardrobe.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
