@@ -20,11 +20,27 @@ class HomeViewModel @ViewModelInject constructor(
     val shirts = clothRepository.getShirts()
     val pants = clothRepository.getPants()
 
+    // TODO: 22/12/20 This can be moved to database to make the Favorites available across App Restarts.
+    private val favoritePairs: MutableMap<String, Boolean> = mutableMapOf()
+
     fun addClothToCatalogue(cloth: Cloth) {
         viewModelScope.launch {
             clothRepository.addCloth(cloth)
         }
     }
+
+    fun setIsPairFavorite(shirtId: Int, pantId: Int) {
+        if (isPairFavorite(shirtId, pantId))
+            favoritePairs.remove(getFavPairKey(shirtId, pantId))
+        else
+            favoritePairs[getFavPairKey(shirtId, pantId)] = true
+    }
+
+    fun isPairFavorite(shirtId: Int, pantId: Int): Boolean =
+        favoritePairs[getFavPairKey(shirtId, pantId)] == true
+
+    // To avoid using wrong id format
+    private fun getFavPairKey(shirtId: Int, pantId: Int) = "$shirtId'_'$pantId"
 
     init {
         // Initialise DB with default Values
