@@ -2,6 +2,7 @@ package com.v15h4l.wardrobe.ui.home
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager2.widget.ViewPager2
 import com.github.drjacky.imagepicker.ImagePicker
+import com.v15h4l.wardrobe.R
 import com.v15h4l.wardrobe.databinding.FragmentHomeBinding
 import com.v15h4l.wardrobe.model.Cloth
 import com.v15h4l.wardrobe.model.ClothType
@@ -61,6 +64,8 @@ class HomeFragment : Fragment() {
         binding.viewPagerShirts.adapter = shirtsAdapter
         binding.viewPagerPants.adapter = pantsAdapter
 
+        observeFavoritePair()
+
         // Init Click Listeners
         binding.btnAddShirts.setOnClickListener {
             newClothType = ClothType.SHIRT
@@ -70,9 +75,53 @@ class HomeFragment : Fragment() {
             newClothType = ClothType.PANT
             showImagePicker()
         }
+        binding.btnShuffle.setOnClickListener { showRandomPair() }
+        binding.btnFavorite.setOnClickListener {
+            toggleFavorite(
+                binding.viewPagerShirts.currentItem,
+                binding.viewPagerPants.currentItem
+            )
+        }
+    }
 
-        binding.btnShuffle.setOnClickListener { /* TODO: 21/12/20 Shuffle selection */ }
-        binding.btnFavorite.setOnClickListener { /* TODO: 21/12/20 Add to Favorites */ }
+    private fun observeFavoritePair() {
+        binding.viewPagerShirts.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                updateFavIcon(position, binding.viewPagerPants.currentItem)
+            }
+        })
+
+        binding.viewPagerPants.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                updateFavIcon(binding.viewPagerShirts.currentItem, position)
+            }
+        })
+    }
+
+    private fun showRandomPair() {
+        binding.viewPagerShirts.currentItem = (0 until shirtsAdapter.itemCount).random()
+        binding.viewPagerPants.currentItem = (0 until pantsAdapter.itemCount).random()
+    }
+
+    private fun toggleFavorite(shirtId: Int, pantId: Int) {
+        viewModel.setIsPairFavorite(shirtId, pantId)
+        updateFavIcon(shirtId, pantId)
+    }
+
+    private fun updateFavIcon(shirtId: Int, pantId: Int) {
+        binding.btnFavorite.backgroundTintList = ColorStateList.valueOf(
+            resources.getColor(
+                if (viewModel.isPairFavorite(shirtId, pantId))
+                    R.color.red
+                else
+                    R.color.teal_200,
+                requireContext().theme
+            )
+        )
     }
 
     /**
