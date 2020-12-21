@@ -8,6 +8,7 @@ import com.v15h4l.wardrobe.R
 import com.v15h4l.wardrobe.data.repository.ClothRepository
 import com.v15h4l.wardrobe.model.Cloth
 import com.v15h4l.wardrobe.model.ClothType
+import com.v15h4l.wardrobe.utils.resourceUri
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 
@@ -32,16 +33,18 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
-    private fun getSampleCloths() = mutableListOf<Cloth>().apply {
-        repeat(10) {
-            add(
-                Cloth(
-                    id = it,
-                    imgRes = if (it % 2 == 0) R.drawable.lake else R.drawable.mountain,
-                    if (it % 2 == 0) ClothType.PANT else ClothType.SHIRT
-                )
-            )
-        }
-    }
+    // Added a dummy Pair
+    private fun getSampleCloths() = mutableListOf(
+        Cloth(
+            id = 1,
+            imagePath = context.resourceUri(R.drawable.shirt).toString(),
+            ClothType.SHIRT
+        ),
+        Cloth(
+            id = 2,
+            imagePath = context.resourceUri(R.drawable.pant).toString(),
+            ClothType.PANT
+        )
+    )
 
 }
